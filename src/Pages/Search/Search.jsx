@@ -144,7 +144,7 @@ const Search = () => {
                                     </h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                         {donors.map(donor => (
-                                            <div key={donor._id} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                            <div key={donor._id} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                                                 <div className="flex flex-col items-center text-center">
                                                     <div className="avatar mb-4">
                                                         <div className="w-24 h-24 rounded-full ring-4 ring-red-50 ring-offset-2 group-hover:ring-red-100 transition-all overflow-hidden">

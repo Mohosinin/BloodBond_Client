@@ -28,7 +28,7 @@ const Funding = () => {
              {/* Header */}
             <div className="mb-12 text-center relative">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-red-100 rounded-full blur-3xl opacity-50"></div>
-                <h1 className="text-4xl font-black text-gray-800 relative z-10 mb-2">Fund Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">Mission</span></h1>
+                <h1 className="text-4xl font-black text-gray-800 relative z-10 mb-2">Fund Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 to-red-500">Mission</span></h1>
                 <p className="text-gray-500 max-w-2xl mx-auto relative z-10">Your generous contributions help us maintain the platform and organize blood donation campaigns effectively.</p>
             </div>
 
@@ -65,7 +65,7 @@ const Funding = () => {
 
                 {/* Recent Funding List */}
                 <div className="lg:col-span-2">
-                    <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden min-h-[400px]">
+                    <div className="bg-white rounded-3xl shadow-xl border border-gray-300 overflow-hidden min-h-[400px]">
                         <div className="p-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/50">
                             <h3 className="font-bold text-gray-800 text-lg">Recent Heroes</h3>
                              <span className="text-xs font-semibold px-3 py-1 bg-green-100 text-green-600 rounded-full capitalize">Verified Payments</span>

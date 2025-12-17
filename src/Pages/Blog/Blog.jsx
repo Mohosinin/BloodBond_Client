@@ -40,11 +40,11 @@ const Blog = () => {
                     <input 
                         type="text" 
                         placeholder="Search articles..." 
-                        className="input input-lg w-full pl-12 shadow-xl border-none rounded-full focus:ring-2 focus:ring-red-500"
+                        className="input input-lg bg-gray-200 w-full pl-12 shadow-xl border-none rounded-full focus:ring-2 focus:ring-red-500"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <FaSearch className="absolute left-5 top-5 text-gray-400 text-lg" />
+                    <FaSearch className="absolute left-5 top-6 text-gray-400 text-lg" />
                 </div>
 
                 {isLoading ? (
@@ -54,7 +54,7 @@ const Blog = () => {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredBlogs.map(blog => (
-                            <div key={blog._id} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group flex flex-col h-full">
+                            <div key={blog._id} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-300 group flex flex-col h-full">
                                 <div className="h-56 overflow-hidden relative">
                                     <img 
                                         src={blog.thumbnail || "https://placehold.co/600x400?text=Blood+Donation"} 
