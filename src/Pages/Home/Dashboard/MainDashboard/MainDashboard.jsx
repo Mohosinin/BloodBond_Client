@@ -23,10 +23,10 @@ const MainDashboard = () => {
                 .catch(err => console.error(err));
         } else if (user?.email) {
             // Donor Logic
-             fetch(`http://localhost:5000/donation-requests?email=${user.email}`)
-                .then(res => res.json())
-                .then(data => {
-                    const recent = data.slice(0, 3);
+             // Donor Logic
+             axiosSecure.get(`/donation-requests?email=${user.email}`)
+                .then(res => {
+                    const recent = res.data.slice(0, 3);
                     setRecentRequests(recent);
                 })
         }
@@ -44,12 +44,9 @@ const MainDashboard = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/donation-requests/${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.deletedCount > 0) {
+                axiosSecure.delete(`/donation-requests/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
                             Swal.fire(
                                 'Deleted!',
                                 'Your file has been deleted.',
@@ -64,16 +61,9 @@ const MainDashboard = () => {
     }
 
     const handleStatusUpdate = (id, newStatus) => {
-        fetch(`http://localhost:5000/donation-requests/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({ status: newStatus })
-        })
-        .then(res => res.json())
-        .then(data => {
-             if (data.modifiedCount > 0) {
+        axiosSecure.patch(`/donation-requests/${id}`, { status: newStatus })
+        .then(res => {
+             if (res.data.modifiedCount > 0) {
                  const updated = recentRequests.map(req => {
                      if(req._id === id) {
                          return { ...req, status: newStatus }
