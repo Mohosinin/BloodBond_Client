@@ -68,7 +68,7 @@ const BlogDetails = () => {
 
             {/* Content Body */}
             <div className="max-w-4xl mx-auto px-4 -mt-10 relative z-10">
-                <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+                <div className="bg-white rounded-2xl shadow-xl border border-gray-300 p-8 md:p-12">
                     {/* Share Buttons */}
                     <div className="flex items-center justify-end gap-4 mb-8 border-b pb-4">
                         <span className="text-gray-500 font-semibold text-sm flex items-center gap-2">

@@ -67,6 +67,13 @@ const Search = () => {
         }
     }
 
+    const [selectedDonor, setSelectedDonor] = useState(null);
+
+    const handleViewDetails = (donor) => {
+        setSelectedDonor(donor);
+        document.getElementById('donor_modal').showModal();
+    }
+
     return (
         <div className="min-h-screen bg-gray-50 py-10 px-4 font-sans">
             <div className="max-w-7xl mx-auto">
@@ -162,8 +169,7 @@ const Search = () => {
                                                     </div>
                                                     
                                                     <div className="w-full pt-4 border-t border-gray-50">
-                                                        {/* Normally we handle contact info visibility but public search implies limited info or login to view */}
-                                                        <button className="btn btn-sm btn-outline btn-error rounded-full w-full">View Details</button>
+                                                        <button onClick={() => handleViewDetails(donor)} className="btn btn-sm btn-outline btn-error rounded-full w-full">View Details</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,6 +180,55 @@ const Search = () => {
                         </>
                     )}
                 </div>
+
+                {/* Donor Details Modal */}
+                <dialog id="donor_modal" className="modal">
+                    <div className="modal-box p-0 rounded-2xl overflow-hidden bg-white shadow-2xl relative">
+                        {selectedDonor && (
+                            <>
+                                <div className="h-32 bg-gradient-to-r from-red-500 to-red-600 relative">
+                                    <button onClick={() => document.getElementById('donor_modal').close()} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white bg-black/20 hover:bg-black/30 border-none">✕</button>
+                                    <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
+                                        <div className="avatar">
+                                            <div className="w-24 h-24 rounded-full ring-4 ring-white shadow-lg overflow-hidden bg-white">
+                                                <img src={selectedDonor.photo || "https://i.ibb.co/4pDNDk1/avatar.png"} alt="Donor" className="object-cover w-full h-full"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="pt-16 pb-8 px-8 text-center">
+                                    <h3 className="text-2xl font-bold text-gray-800 mb-1">{selectedDonor.name}</h3>
+                                    <p className="text-gray-500 flex justify-center items-center gap-2 mb-6 text-sm">
+                                        <FaMapMarkerAlt className="text-red-500" />
+                                        {selectedDonor.upazila}, {selectedDonor.district}, {selectedDonor.division}
+                                    </p>
+                                    
+                                    <div className="grid grid-cols-2 gap-4 mb-6">
+                                        <div className="bg-red-50 p-3 rounded-xl border border-red-100">
+                                            <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Blood Group</p>
+                                            <p className="text-xl font-bold text-red-600">{selectedDonor.bloodGroup}</p>
+                                        </div>
+                                        <div className="bg-blue-50 p-3 rounded-xl border border-blue-100">
+                                            <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Status</p>
+                                            <p className="text-xl font-bold text-blue-600">Active</p>
+                                        </div>
+                                    </div>
+                                
+                                    <div className="text-xs text-gray-400 italic mb-6">
+                                        * Contact information is hidden for privacy. Please login or contact admin to connect.
+                                    </div>
+
+                                    <form method="dialog">
+                                        <button className="btn w-full bg-red-600 hover:bg-red-700 text-white rounded-xl border-none">Close Details</button>
+                                    </form>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                    <form method="dialog" className="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                </dialog>
             </div>
         </div>
     );

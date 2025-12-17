@@ -75,7 +75,7 @@ const DonationRequestDetails = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 py-12 px-4 font-sans">
-            <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
+            <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-300">
                 {/* Header Banner */}
                 <div className="bg-red-600 p-8 text-white relative overflow-hidden">
                     <div className="relative z-10">

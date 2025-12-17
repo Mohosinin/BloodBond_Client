@@ -135,7 +135,7 @@ const MyDonationRequests = () => {
                 </div>
             </div>
 
-            <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100 min-h-[400px]">
+            <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-300 min-h-[400px]">
                 <div className="overflow-x-auto">
                     <table className="table w-full">
                          <thead className="bg-gray-50 text-gray-500 text-sm uppercase font-semibold">
