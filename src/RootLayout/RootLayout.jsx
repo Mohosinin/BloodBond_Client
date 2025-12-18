@@ -38,8 +38,8 @@ const RootLayout = () => {
                             {navOptions}
                         </ul>
                     </div>
-                    <Link to="/" className="btn btn-ghost text-2xl font-bold gap-2 hover:bg-transparent px-0 ml-4 group">
-                        <span className="text-3xl group-hover:scale-110 transition-transform">🩸</span>
+                    <Link to="/" className="btn btn-ghost text-xl lg:text-2xl font-bold gap-1 lg:gap-2 hover:bg-transparent px-0 ml-2 lg:ml-4 group">
+                        <span className="text-2xl lg:text-3xl group-hover:scale-110 transition-transform">🩸</span>
                         <span className="text-white tracking-tight">Blood<span className="text-red-500">Bond</span></span>
                     </Link>
                 </div>
@@ -48,11 +48,11 @@ const RootLayout = () => {
                         {navOptions}
                     </ul>
                 </div>
-                <div className="navbar-end pr-4 flex items-center gap-4">
+                <div className="navbar-end pr-2 lg:pr-4 flex items-center gap-2 lg:gap-4">
                     {user && (
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar border border-red-100 hover:border-red-300 transition-all">
-                                <div className="w-10 rounded-full ring ring-offset-2 ring-red-50">
+                                <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full ring ring-offset-2 ring-red-50">
                                     <img src={user?.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png"} alt={user.displayName} />
                                 </div>
                             </label>
@@ -66,7 +66,7 @@ const RootLayout = () => {
                         </div>
                     )}
                     {!user && (
-                        <Link to="/register" className="btn bg-red-600 hover:bg-red-700 text-white border-none rounded-full px-8 shadow-lg hover:shadow-red-200 transition-all duration-300 transform hover:-translate-y-0.5 font-semibold tracking-wide">Donate Now</Link>
+                        <Link to="/register" className="btn btn-sm lg:btn-md bg-red-600 hover:bg-red-700 text-white border-none rounded-full px-4 lg:px-8 shadow-lg hover:shadow-red-200 transition-all duration-300 transform hover:-translate-y-0.5 font-semibold tracking-wide">Donate Now</Link>
                     )}
                 </div>
             </div>
