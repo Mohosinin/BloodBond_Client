@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet, Link, NavLink } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import { FaBars, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const RootLayout = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user, logOut } = useAuth();
 
     const handleLogout = () => {
@@ -12,15 +13,15 @@ const RootLayout = () => {
             .catch(error => console.log(error));
     }
 
-    const navOptions = (
+    const renderNavOptions = (handleLinkClick = () => {}) => (
         <>
-            <li><NavLink to="/" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Home</NavLink></li>
-            <li><NavLink to="/donation-requests" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Donation Requests</NavLink></li>
-            <li><NavLink to="/search" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Search</NavLink></li>
-            <li><NavLink to="/blog" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Blog</NavLink></li>
-            {user && <li><NavLink to="/funding" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Funding</NavLink></li>}
+            <li onClick={handleLinkClick}><NavLink to="/" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Home</NavLink></li>
+            <li onClick={handleLinkClick}><NavLink to="/donation-requests" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Donation Requests</NavLink></li>
+            <li onClick={handleLinkClick}><NavLink to="/search" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Search</NavLink></li>
+            <li onClick={handleLinkClick}><NavLink to="/blog" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Blog</NavLink></li>
+            {user && <li onClick={handleLinkClick}><NavLink to="/funding" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Funding</NavLink></li>}
             {!user && (
-                <li><NavLink to="/login" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Login</NavLink></li>
+                <li onClick={handleLinkClick}><NavLink to="/login" className={({ isActive }) => isActive ? "text-red-500 font-bold bg-gray-800 rounded-lg" : "text-gray-300 hover:text-red-500 font-medium hover:bg-gray-800 rounded-lg transition-all"}>Login</NavLink></li>
             )}
         </>
     );
@@ -30,12 +31,12 @@ const RootLayout = () => {
             {/* Navbar */}
             <div className="navbar bg-gray-900 shadow-lg sticky top-0 z-50 transition-all border-b border-gray-800">
                 <div className="navbar-start">
-                    <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden hover:bg-gray-800 text-red-600">
+                    <div className={`dropdown ${isMenuOpen ? 'dropdown-open' : ''}`}>
+                        <div role="button" onClick={() => setIsMenuOpen(!isMenuOpen)} className="btn btn-ghost lg:hidden hover:bg-gray-800 text-red-600">
                             <FaBars className="text-xl" />
                         </div>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-xl bg-gray-900 rounded-2xl w-52 text-gray-300 border border-gray-800">
-                            {navOptions}
+                        <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-xl bg-gray-900 rounded-2xl w-52 text-gray-300 border border-gray-800">
+                            {renderNavOptions(() => setIsMenuOpen(false))}
                         </ul>
                     </div>
                     <Link to="/" className="btn btn-ghost text-xl lg:text-2xl font-bold gap-1 lg:gap-2 hover:bg-transparent px-0 ml-2 lg:ml-4 group">
@@ -45,7 +46,7 @@ const RootLayout = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 gap-8 text-base font-medium text-gray-300">
-                        {navOptions}
+                        {renderNavOptions()}
                     </ul>
                 </div>
                 <div className="navbar-end pr-2 lg:pr-4 flex items-center gap-2 lg:gap-4">
