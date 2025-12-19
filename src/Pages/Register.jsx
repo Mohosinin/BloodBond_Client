@@ -3,15 +3,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../hooks/useAxiosSecure';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
 
     const [divisions, setDivisions] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [upazilas, setUpazilas] = useState([]);
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const [selectedDivision, setSelectedDivision] = useState('');
     const [selectedDistrict, setSelectedDistrict] = useState('');
@@ -144,6 +149,60 @@ const Register = () => {
         }
     }
 
+    const handleGoogleRegister = () => {
+        signInWithGoogle()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                const userInfo = {
+                    name: user.displayName,
+                    email: user.email,
+                    avatar: user.photoURL,
+                    role: 'donor', 
+                    status: 'active',
+                    bloodGroup: 'N/A', // Placeholder as google doesn't provide this
+                    division: 'N/A',
+                    district: 'N/A',
+                    upazila: 'N/A'
+                };
+
+                axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        console.log("User saved:", res.data);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Registration Successful!',
+                            text: 'Welcome to our community of heroes.',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            iconColor: '#EF4444',
+                            background: '#fff',
+                            color: '#1F2937'
+                        });
+                        navigate('/');
+                    })
+                    .catch(err => {
+                        // User might already exist, just navigate
+                        console.log("User might already exist or error saving:", err);
+                        // Even if error (e.g. duplicate email), we can treat as success login IF it differs from 400
+                        // But usually we just navigate home if they are logged in via google
+                        navigate('/');
+                    });
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Registration Failed',
+                    text: error.message,
+                    confirmButtonColor: '#EF4444',
+                    background: '#fff',
+                    color: '#1F2937'
+                })
+            })
+    }
+
     return (
         <div className="min-h-screen bg-gray-50 py-12 px-4 font-sans relative overflow-hidden">
              {/* Background Decoration */}
@@ -249,11 +308,39 @@ const Register = () => {
                             
                             <div className="form-control">
                                 <label className="label font-medium text-gray-700">Password</label>
-                                <input type="password" name="password" placeholder="••••••••" className="input input-bordered w-full focus:ring-1 focus:ring-red-500 focus:border-red-500 bg-gray-50 focus:bg-white" required />
+                                <div className="relative">
+                                    <input 
+                                        type={showPassword ? "text" : "password"} 
+                                        name="password" 
+                                        placeholder="••••••••" 
+                                        className="input input-bordered w-full focus:ring-1 focus:ring-red-500 focus:border-red-500 bg-gray-50 focus:bg-white pr-10" 
+                                        required 
+                                    />
+                                    <span 
+                                        className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-red-500"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                    >
+                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </span>
+                                </div>
                             </div>
                             <div className="form-control">
                                 <label className="label font-medium text-gray-700">Confirm Password</label>
-                                <input type="password" name="confirm_password" placeholder="••••••••" className="input input-bordered w-full focus:ring-1 focus:ring-red-500 focus:border-red-500 bg-gray-50 focus:bg-white" required />
+                                <div className="relative">
+                                    <input 
+                                        type={showConfirmPassword ? "text" : "password"} 
+                                        name="confirm_password" 
+                                        placeholder="••••••••" 
+                                        className="input input-bordered w-full focus:ring-1 focus:ring-red-500 focus:border-red-500 bg-gray-50 focus:bg-white pr-10" 
+                                        required 
+                                    />
+                                    <span 
+                                        className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-red-500"
+                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    >
+                                        {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </span>
+                                </div>
                             </div>
                          </div>
 
@@ -263,6 +350,13 @@ const Register = () => {
                             </button>
                         </div>
                     </form>
+
+                    <div className="divider my-6">OR</div>
+
+                    <button onClick={handleGoogleRegister} className="btn btn-outline w-full border-gray-300 hover:bg-gray-50 hover:border-gray-400 text-gray-700 h-12 text-lg font-normal flex items-center justify-center gap-2">
+                        <FcGoogle className="text-2xl" />
+                        Sign up with Google
+                    </button>
                 </div>
             </div>
         </div>

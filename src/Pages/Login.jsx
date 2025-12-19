@@ -1,10 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
-    const { signIn } = useContext(AuthContext);
+    const { signIn, signInWithGoogle } = useContext(AuthContext);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -36,6 +39,40 @@ const Login = () => {
                 navigate(from, { replace: true });
             })
             .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: error.message,
+                    confirmButtonColor: '#EF4444',
+                    background: '#fff',
+                    color: '#1F2937'
+                })
+            })
+    }
+
+    const handleGoogleLogin = () => {
+        signInWithGoogle()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Welcome Back!',
+                    text: 'Google Login Successful',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    iconColor: '#EF4444',
+                    background: '#fff',
+                    color: '#1F2937'
+                });
+                navigate(from, { replace: true });
+            })
+            .catch(error => {
+                console.error(error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Login Failed',
@@ -90,7 +127,21 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text font-medium text-gray-700">Password</span>
                             </label>
-                            <input type="password" name="password" placeholder="••••••••" className="input input-bordered w-full bg-gray-50 focus:bg-white focus:border-red-500 transition-colors" required />
+                            <div className="relative">
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    name="password" 
+                                    placeholder="••••••••" 
+                                    className="input input-bordered w-full bg-gray-50 focus:bg-white focus:border-red-500 transition-colors pr-10" 
+                                    required 
+                                />
+                                <span 
+                                    className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-red-500"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </span>
+                            </div>
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover text-red-500 font-medium ml-auto">Forgot password?</a>
                             </label>
@@ -99,6 +150,13 @@ const Login = () => {
                             Login
                         </button>
                     </form>
+
+                    <div className="divider my-6">OR</div>
+
+                    <button onClick={handleGoogleLogin} className="btn btn-outline w-full border-gray-300 hover:bg-gray-50 hover:border-gray-400 text-gray-700 h-12 text-lg font-normal flex items-center justify-center gap-2">
+                        <FcGoogle className="text-2xl" />
+                        Continue with Google
+                    </button>
 
                     <div className="mt-8 text-center text-sm text-gray-500">
                         Don't have an account? <Link to="/register" className="text-red-500 font-bold hover:underline">Register Now</Link>
