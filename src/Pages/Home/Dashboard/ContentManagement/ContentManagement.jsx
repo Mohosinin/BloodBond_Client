@@ -97,18 +97,18 @@ const ContentManagement = () => {
     };
 
     return (
-        <div className="p-8 font-sans bg-gray-50 min-h-screen">
-            <div className="flex justify-between items-center mb-8">
+        <div className="p-4 md:p-8 font-sans bg-gray-50 min-h-screen">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
+                    <h1 className="text-2xl md:text-3xl font-bold text-gray-800 flex items-center gap-3">
                         <FaNewspaper className="text-red-600" />
                         Content Management
                     </h1>
-                    <p className="text-gray-500 mt-1">Create and manage blog posts for the community.</p>
+                    <p className="text-gray-500 mt-1 text-sm md:text-base">Create and manage blog posts for the community.</p>
                 </div>
                 <button 
                     onClick={() => openModal()} 
-                    className="btn bg-red-600 hover:bg-red-700 text-white gap-2 shadow-lg shadow-red-200 border-none rounded-full px-6"
+                    className="btn bg-red-600 hover:bg-red-700 text-white gap-2 shadow-lg shadow-red-200 border-none rounded-full px-6 w-full md:w-auto"
                 >
                     <FaPlus /> Add Blog
                 </button>
