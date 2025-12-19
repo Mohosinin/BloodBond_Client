@@ -114,16 +114,16 @@ const AllUsers = () => {
                         {/* Table Head */}
                         <thead className="bg-gray-50 text-gray-500 font-semibold uppercase text-xs tracking-wider">
                             <tr>
-                                <th className="py-4 pl-6">User</th>
+                                <th className="py-4 pl-4 lg:pl-6">User</th>
                                 <th>Role</th>
                                 <th>Status</th>
-                                <th className="text-left pl-6">Actions</th>
+                                <th className="text-left pl-4 lg:pl-6">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
                             {filteredUsers.map((user) => (
                                 <tr key={user._id} className="hover:bg-red-50/30 transition-colors">
-                                    <td className="py-4 pl-6">
+                                    <td className="py-4 pl-4 lg:pl-6">
                                         <div className="flex items-center space-x-4">
                                             <div className="avatar">
                                                 <div className="mask mask-squircle w-12 h-12 bg-gray-100 ring-2 ring-white shadow-sm">
@@ -153,7 +153,7 @@ const AllUsers = () => {
                                             {user.status || 'active'}
                                         </span>
                                     </td>
-                                    <td className="text-left pl-6">
+                                    <td className="text-left pl-4 lg:pl-6">
                                         <div className="flex justify-start gap-2">
                                             {/* Status Toggle */}
                                             {user.status === 'active' ? (

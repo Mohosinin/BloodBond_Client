@@ -85,7 +85,7 @@ const MainDashboard = () => {
     return (
         <div className="w-full max-w-7xl mx-auto">
             {/* Welcome Banner */}
-            <div className="mb-10 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-8 text-white shadow-lg relative overflow-hidden">
+            <div className="mb-10 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-6 md:p-8 text-white shadow-lg relative overflow-hidden">
                 <div className="relative z-10">
                     <h1 className="text-3xl font-bold mb-2">Welcome Back, {user?.displayName}! 👋</h1>
                     <p className="opacity-90">Here's what's happening with your blood donation activities today.</p>
@@ -146,7 +146,7 @@ const MainDashboard = () => {
                                 <table className="table w-full">
                                     <thead className="bg-gray-50 text-gray-500 font-semibold text-xs uppercase tracking-wider">
                                         <tr>
-                                            <th className="py-4 pl-6">Recipient</th>
+                                            <th className="py-4 pl-4 lg:pl-6">Recipient</th>
                                             <th>Location</th>
                                             <th>Date & Time</th>
                                             <th>Blood Group</th>
@@ -157,7 +157,7 @@ const MainDashboard = () => {
                                     <tbody className="divide-y divide-gray-100">
                                         {recentRequests.map(req => (
                                             <tr key={req._id} className="hover:bg-gray-50/50 transition-colors">
-                                                <td className="py-4 pl-6 font-medium text-gray-900">{req.recipientName}</td>
+                                                <td className="py-4 pl-4 lg:pl-6 font-medium text-gray-900">{req.recipientName}</td>
                                                 <td className="text-gray-600">{req.recipientDistrict}, {req.recipientUpazila}</td>
                                                 <td>
                                                     <div className="flex flex-col text-sm">

@@ -140,7 +140,7 @@ const MyDonationRequests = () => {
                     <table className="table w-full">
                          <thead className="bg-gray-50 text-gray-500 text-sm uppercase font-semibold">
                                 <tr>
-                                    <th className="py-4 pl-6">Recipient</th>
+                                    <th className="py-4 pl-4 lg:pl-6">Recipient</th>
                                     <th>Location</th>
                                     <th>Date & Time</th>
                                     <th>Group</th>
@@ -152,7 +152,7 @@ const MyDonationRequests = () => {
                         <tbody className="divide-y divide-gray-50">
                             {displayedRequests.map(req => (
                                 <tr key={req._id} className="hover:bg-gray-50 transition-colors">
-                                    <td className="py-4 pl-6 font-medium text-gray-900">{req.recipientName}</td>
+                                    <td className="py-4 pl-4 lg:pl-6 font-medium text-gray-900">{req.recipientName}</td>
                                     <td className="text-gray-600">{req.recipientUpazila}, {req.recipientDistrict}</td>
                                     <td>
                                         <div className="text-sm">

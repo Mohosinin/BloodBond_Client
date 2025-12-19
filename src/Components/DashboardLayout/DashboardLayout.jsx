@@ -41,7 +41,7 @@ const DashboardLayout = () => {
 
     const SidebarContent = () => (
         <>
-            <div className="p-8 border-b border-gray-100 flex items-center gap-4">
+            <div className="p-4 lg:p-8 border-b border-gray-100 flex items-center gap-4">
                 <div className="avatar online">
                     <div className="w-12 h-12 rounded-full ring ring-red-100 ring-offset-2">
                         <img src={user?.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png"} alt="User" />
@@ -111,8 +111,8 @@ const DashboardLayout = () => {
             )}
 
             {/* Mobile Sidebar */}
-            <aside className={`fixed top-0 left-0 h-full w-72 bg-white shadow-2xl z-40 transform transition-transform duration-300 ease-in-out lg:hidden ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-                <div className="absolute top-4 right-4 lg:hidden">
+            <aside className={`fixed top-0 left-0 h-full w-72 bg-white shadow-2xl z-40 transform transition-transform duration-300 ease-in-out lg:hidden flex flex-col ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <div className="absolute top-2 right-2 lg:hidden z-50">
                     <button onClick={closeMobileMenu} className="p-2 text-gray-500 hover:bg-gray-100 rounded-full">
                         <FaTimes size={20} />
                     </button>
