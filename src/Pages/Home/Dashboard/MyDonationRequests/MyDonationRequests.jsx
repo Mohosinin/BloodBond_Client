@@ -136,7 +136,8 @@ const MyDonationRequests = () => {
             </div>
 
             <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-300 min-h-[400px]">
-                <div className="overflow-x-auto">
+                {/* Desktop Table */}
+                <div className="overflow-x-auto hidden md:block">
                     <table className="table w-full">
                          <thead className="bg-gray-50 text-gray-500 text-sm uppercase font-semibold">
                                 <tr>
@@ -198,6 +199,68 @@ const MyDonationRequests = () => {
                         </tbody>
                     </table>
                 </div>
+                
+                {/* Mobile Card Layout */}
+                <div className="md:hidden flex flex-col gap-4 p-4 bg-gray-50">
+                    {displayedRequests.map(req => (
+                        <div key={req._id} className="bg-white p-5 rounded-xl shadow border border-gray-100 flex flex-col gap-4">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <h3 className="font-bold text-gray-900 text-lg">{req.recipientName}</h3>
+                                    <p className="text-sm text-gray-500">{req.recipientUpazila}, {req.recipientDistrict}</p>
+                                </div>
+                                <span className="font-bold text-red-600 bg-red-50 px-3 py-1 rounded-full text-sm">{req.bloodGroup}</span>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3 text-sm">
+                                <div className="bg-gray-50 p-3 rounded-lg">
+                                    <p className="text-xs text-gray-400 uppercase font-bold mb-1">Date</p>
+                                    <p className="font-semibold">{req.donationDate}</p>
+                                </div>
+                                <div className="bg-gray-50 p-3 rounded-lg">
+                                    <p className="text-xs text-gray-400 uppercase font-bold mb-1">Time</p>
+                                    <p className="font-semibold">{req.donationTime}</p>
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                                <span className="text-xs font-bold text-gray-500 uppercase">Status</span>
+                                <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
+                                    req.status === 'done' ? 'bg-green-100 text-green-700' : 
+                                    req.status === 'canceled' ? 'bg-red-100 text-red-700' : 
+                                    req.status === 'inprogress' ? 'bg-blue-100 text-blue-700' : 
+                                    'bg-yellow-100 text-yellow-700'
+                                }`}>
+                                    {req.status}
+                                </span>
+                            </div>
+                            
+                            {req.status === 'inprogress' && (
+                                <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                    <p className="text-xs text-blue-500 uppercase font-bold mb-1">Donor Info</p>
+                                    <p className="font-semibold text-gray-800">{req.donorName || 'Unknown'}</p>
+                                    <p className="text-xs text-gray-500">{req.donorEmail}</p>
+                                </div>
+                            )}
+
+                            <div className="flex justify-between items-center pt-3 border-t border-gray-100 gap-2 overflow-x-auto">
+                                <div className="flex gap-2">
+                                     <Link to={`/dashboard/update-donation-request/${req._id}`} state={{ from: location.pathname }} className="btn btn-sm btn-outline btn-info"><FaEdit /></Link>
+                                     <button onClick={() => handleDelete(req._id)} className="btn btn-sm btn-outline btn-error"><FaTrash /></button>
+                                     <Link to={`/dashboard/donation-request-details/${req._id}`} className="btn btn-sm btn-outline"><FaEye /></Link>
+                                </div>
+                                
+                                {req.status === 'inprogress' && (
+                                    <div className="flex gap-2">
+                                        <button onClick={() => handleStatusUpdate(req._id, 'done')} className="btn btn-sm btn-success text-white"><FaCheck /></button>
+                                        <button onClick={() => handleStatusUpdate(req._id, 'canceled')} className="btn btn-sm btn-error text-white"><FaTimes /></button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
                 {displayedRequests.length === 0 && (
                      <div className="text-center py-12 text-gray-500">
                         No requests found.

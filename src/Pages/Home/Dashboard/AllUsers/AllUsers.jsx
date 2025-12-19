@@ -109,7 +109,8 @@ const AllUsers = () => {
 
             {/* Table Card */}
             <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
-                <div className="overflow-x-auto">
+                {/* Desktop Table View */}
+                <div className="overflow-x-auto hidden md:block">
                     <table className="table w-full">
                         {/* Table Head */}
                         <thead className="bg-gray-50 text-gray-500 font-semibold uppercase text-xs tracking-wider">
@@ -200,6 +201,84 @@ const AllUsers = () => {
                             ))}
                         </tbody>
                     </table>
+                </div>
+
+                {/* Mobile Card View */}
+                <div className="md:hidden flex flex-col gap-4 p-4 bg-gray-50">
+                    {filteredUsers.map((user) => (
+                        <div key={user._id} className="bg-white p-4 rounded-xl shadow border border-gray-100 flex flex-col gap-4">
+                            <div className="flex items-center gap-4">
+                                <div className="avatar">
+                                    <div className="mask mask-squircle w-12 h-12 bg-gray-100 ring-1 ring-gray-200">
+                                        <img src={user.avatar} alt="Avatar" onError={(e) => e.target.src = 'https://i.ibb.co/4pDNDk1/avatar.png'} />
+                                    </div>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <h3 className="font-bold text-gray-900 truncate">{user.name}</h3>
+                                    <p className="text-sm text-gray-500 truncate">{user.email}</p>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                                <span className="text-xs font-bold text-gray-500 uppercase">Role</span>
+                                <span className={`px-2 py-0.5 rounded text-xs font-bold uppercase border ${
+                                    user.role === 'admin' ? 'bg-purple-100 text-purple-700 border-purple-200' :
+                                    user.role === 'volunteer' ? 'bg-orange-100 text-orange-700 border-orange-200' :
+                                    'bg-blue-100 text-blue-700 border-blue-200'
+                                }`}>
+                                    {user.role}
+                                </span>
+                            </div>
+
+                            <div className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                                <span className="text-xs font-bold text-gray-500 uppercase">Status</span>
+                                <span className={`flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-bold border ${
+                                    user.status === 'active' ? 'bg-green-100 text-green-700 border-green-200' : 'bg-red-100 text-red-700 border-red-200'
+                                }`}>
+                                    <span className={`w-2 h-2 rounded-full ${user.status === 'active' ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                                    {user.status || 'active'}
+                                </span>
+                            </div>
+
+                            <div className="flex justify-end pt-2 border-t border-gray-100 gap-2">
+                                {user.status === 'active' ? (
+                                    <button 
+                                        onClick={() => handleStatusUpdate(user, 'blocked')}
+                                        className="btn btn-sm bg-white border-red-200 text-red-500 hover:bg-red-50 hover:border-red-300 w-full flex-1">
+                                        <FaBan className="mr-2" /> Block
+                                    </button>
+                                ) : (
+                                    <button 
+                                        onClick={() => handleStatusUpdate(user, 'active')}
+                                        className="btn btn-sm bg-white border-green-200 text-green-500 hover:bg-green-50 hover:border-green-300 w-full flex-1">
+                                        <FaCheckCircle className="mr-2" /> Unblock
+                                    </button>
+                                )}
+
+                                {user.role !== 'admin' && (
+                                    <div className="dropdown dropdown-end dropdown-top">
+                                        <label tabIndex={0} className="btn btn-sm btn-ghost bg-gray-100 text-gray-600">
+                                            <FaEllipsisV />
+                                        </label>
+                                        <ul tabIndex={0} className="dropdown-content z-[2] menu p-2 shadow-xl bg-white rounded-xl w-48 border border-gray-100 mb-2">
+                                            <li>
+                                                <button onClick={() => handleMakeAdmin(user)} className="text-gray-600">
+                                                    <FaUserShield className="mr-2" /> Make Admin
+                                                </button>
+                                            </li>
+                                            {user.role !== 'volunteer' && (
+                                                <li>
+                                                    <button onClick={() => handleMakeVolunteer(user)} className="text-gray-600">
+                                                        <FaUserTie className="mr-2" /> Make Volunteer
+                                                    </button>
+                                                </li>
+                                            )}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
             
