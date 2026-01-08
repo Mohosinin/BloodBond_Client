@@ -1,55 +1,100 @@
+/**
+ * CREATED BY: [Person 2 Name]
+ * FEATURE: Emergency Contact Widget
+ * 
+ * A quick-access emergency contact component showing
+ * important numbers for blood-related emergencies
+ */
+
 import React, { useState } from 'react';
-import { FaPhoneAlt, FaTimes } from 'react-icons/fa';
+import { FaPhone, FaAmbulance, FaHospital, FaTimes, FaExclamationTriangle, FaTint } from 'react-icons/fa';
 
 const EmergencyContact = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const emergencyContacts = [
+        { name: 'Emergency Ambulance', number: '999', icon: FaAmbulance, color: 'text-red-400' },
+        { name: 'Blood Bank Helpline', number: '16789', icon: FaTint, color: 'text-rose-400' },
+        { name: 'Nearest Hospital', number: '10600', icon: FaHospital, color: 'text-blue-400' },
+    ];
 
     return (
-        <div className="fixed bottom-6 left-6 z-50">
-            {/* Expanded Content */}
-            {isOpen && (
-                <div className="mb-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-2xl border border-red-100 dark:border-red-900 w-72 animate-fade-in-up">
-                    <div className="flex justify-between items-center mb-3">
-                        <h3 className="font-bold text-red-600 dark:text-red-500">Emergency Contacts</h3>
-                        <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                            <FaTimes />
-                        </button>
-                    </div>
-                    <div className="space-y-3">
-                        <a href="tel:112" className="flex items-center gap-3 p-2 bg-red-50 dark:bg-gray-700 rounded-lg hover:bg-red-100 dark:hover:bg-gray-600 transition-colors">
-                            <div className="bg-red-500 text-white p-2 rounded-full">
-                                <FaPhoneAlt size={12} />
+        <>
+            {/* Floating Emergency Button */}
+            <button
+                onClick={() => setIsExpanded(true)}
+                className={`
+                    fixed bottom-6 right-6 z-50
+                    w-14 h-14 rounded-full
+                    bg-gradient-to-r from-red-600 to-rose-600
+                    text-white shadow-lg shadow-red-500/30
+                    flex items-center justify-center
+                    transition-all duration-300
+                    hover:scale-110 hover:shadow-xl hover:shadow-red-500/40
+                    animate-pulse-slow
+                    ${isExpanded ? 'hidden' : 'flex'}
+                `}
+                aria-label="Emergency Contacts"
+                title="Emergency Contacts"
+            >
+                <FaPhone className="text-xl" />
+            </button>
+
+            {/* Emergency Modal */}
+            {isExpanded && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-gray-900 rounded-3xl p-6 max-w-md w-full border border-red-500/20 shadow-2xl shadow-red-500/10">
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                                    <FaExclamationTriangle className="text-red-400 text-xl" />
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold text-white">Emergency Contacts</h3>
+                                    <p className="text-gray-400 text-sm">Quick access to help</p>
+                                </div>
                             </div>
-                            <div>
-                                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">Ambulance Service</p>
-                                <p className="font-bold text-gray-800 dark:text-gray-200">112</p>
-                            </div>
-                        </a>
-                        <a href="tel:999" className="flex items-center gap-3 p-2 bg-red-50 dark:bg-gray-700 rounded-lg hover:bg-red-100 dark:hover:bg-gray-600 transition-colors">
-                            <div className="bg-red-500 text-white p-2 rounded-full">
-                                <FaPhoneAlt size={12} />
-                            </div>
-                            <div>
-                                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">Emergency Hotline</p>
-                                <p className="font-bold text-gray-800 dark:text-gray-200">999</p>
-                            </div>
-                        </a>
+                            <button
+                                onClick={() => setIsExpanded(false)}
+                                className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+                            >
+                                <FaTimes />
+                            </button>
+                        </div>
+
+                        {/* Contact List */}
+                        <div className="space-y-3">
+                            {emergencyContacts.map((contact, index) => (
+                                <a
+                                    key={index}
+                                    href={`tel:${contact.number}`}
+                                    className="flex items-center justify-between p-4 bg-gray-800/50 rounded-2xl border border-gray-700/50 hover:border-red-500/30 hover:bg-gray-800 transition-all group"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className={`w-10 h-10 rounded-full bg-gray-700/50 flex items-center justify-center ${contact.color} group-hover:scale-110 transition-transform`}>
+                                            <contact.icon />
+                                        </div>
+                                        <div>
+                                            <p className="font-medium text-white">{contact.name}</p>
+                                            <p className="text-sm text-gray-400">{contact.number}</p>
+                                        </div>
+                                    </div>
+                                    <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 group-hover:bg-green-500 group-hover:text-white transition-all">
+                                        <FaPhone />
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+
+                        {/* Footer Note */}
+                        <p className="mt-6 text-center text-gray-500 text-sm">
+                            In case of emergency, don't hesitate to call immediately.
+                        </p>
                     </div>
                 </div>
             )}
-
-            {/* Toggle Button */}
-            <button 
-                onClick={() => setIsOpen(!isOpen)}
-                className={`btn btn-circle btn-lg border-none shadow-lg transition-transform hover:scale-110 ${isOpen ? 'bg-gray-500 hover:bg-gray-600' : 'bg-red-600 hover:bg-red-700 animate-pulse'}`}
-            >
-                {isOpen ? (
-                    <FaTimes className="text-xl text-white" />
-                ) : (
-                    <FaPhoneAlt className="text-xl text-white" />
-                )}
-            </button>
-        </div>
+        </>
     );
 };
 
