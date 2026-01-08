@@ -1,3 +1,14 @@
+/**
+ * MODIFIED BY: [Person 2 Name]
+ * FEATURE: Blood Compatibility Route & Navigation Updates + Admin Analytics & Announcements
+ * 
+ * Changes Made:
+ * - Added BloodCompatibility page import
+ * - Added /blood-compatibility route
+ * - Added Analytics dashboard page for admins
+ * - Added Announcements management page for admins
+ */
+
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../RootLayout/RootLayout";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
@@ -24,6 +35,13 @@ import AllBloodDonationRequests from "../Pages/Home/Dashboard/AllBloodDonationRe
 import ContentManagement from "../Pages/Home/Dashboard/ContentManagement/ContentManagement";
 import ManageProduct from "../Pages/Home/Dashboard/ManageProduct/ManageProduct";
 import AdminOrVolunteerRoute from "./AdminOrVolunteerRoute";
+
+// NEW: Blood Compatibility Page - Added by [Person 2 Name]
+import BloodCompatibility from "../Pages/BloodCompatibility/BloodCompatibility";
+
+// NEW: Analytics & Announcements Pages - Added by [Person 2 Name]
+import Analytics from "../Pages/Analytics/Analytics";
+import Announcements from "../Pages/Announcements/Announcements";
 
 
 const router = createBrowserRouter([
@@ -67,6 +85,11 @@ const router = createBrowserRouter([
       {
         path: '/funding',
         element: <PrivateRoute><Funding></Funding></PrivateRoute>
+      },
+      // NEW ROUTE: Blood Compatibility Chart - Added by [Person 2 Name]
+      {
+        path: '/blood-compatibility',
+        element: <BloodCompatibility></BloodCompatibility>
       },
     ],
   },
@@ -117,6 +140,15 @@ const router = createBrowserRouter([
       {
         path: 'manage-product',
         element: <ManageProduct></ManageProduct>
+      },
+      // NEW ROUTES: Analytics & Announcements - Added by [Person 2 Name]
+      {
+        path: 'analytics',
+        element: <AdminRoute><Analytics></Analytics></AdminRoute>
+      },
+      {
+        path: 'announcements',
+        element: <AdminRoute><Announcements></Announcements></AdminRoute>
       }
     ]
   }
