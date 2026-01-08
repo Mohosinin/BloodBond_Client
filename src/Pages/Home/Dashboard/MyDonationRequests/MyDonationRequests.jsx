@@ -122,7 +122,7 @@ const MyDonationRequests = () => {
                 </div>
                 <div className="form-control w-full md:w-auto">
                     <select 
-                        className="select select-bordered w-full md:w-48 bg-white" 
+                        className="select select-bordered w-full md:w-48 bg-white text-gray-800" 
                         value={filter} 
                         onChange={handleFilterChange}
                     >

@@ -1,11 +1,238 @@
+/**
+ * MODIFIED BY: [Person 1 Name]
+ * FEATURE: Dark/Light Mode CSS Variables & Enhanced Styling
+ * 
+ * Added:
+ * - CSS custom properties for theming
+ * - Dark mode color palette
+ * - Light mode color palette
+ * - Smooth theme transition animations
+ * - Enhanced button hover effects
+ * - Custom scrollbar styling
+ */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   THEME VARIABLES - Dark Mode (Default)
+   ============================================ */
+:root {
+    /* Primary Colors */
+    --color-primary: #ef4444;
+    --color-primary-hover: #dc2626;
+    --color-primary-light: rgba(239, 68, 68, 0.1);
+    
+    /* Background Colors */
+    --color-bg-primary: #111827;
+    --color-bg-secondary: #1f2937;
+    --color-bg-tertiary: #374151;
+    --color-bg-card: rgba(31, 41, 55, 0.5);
+    
+    /* Text Colors */
+    --color-text-primary: #f9fafb;
+    --color-text-secondary: #9ca3af;
+    --color-text-muted: #6b7280;
+    
+    /* Border Colors */
+    --color-border: #374151;
+    --color-border-light: rgba(55, 65, 81, 0.5);
+    
+    /* Gradient */
+    --gradient-primary: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    --gradient-dark: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 20px rgba(239, 68, 68, 0.3);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* ============================================
+   LIGHT MODE VARIABLES
+   ============================================ */
+.light {
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f3f4f6;
+    --color-bg-tertiary: #e5e7eb;
+    --color-bg-card: rgba(255, 255, 255, 0.8);
+    
+    --color-text-primary: #111827;
+    --color-text-secondary: #4b5563;
+    --color-text-muted: #9ca3af;
+    
+    --color-border: #e5e7eb;
+    --color-border-light: rgba(229, 231, 235, 0.5);
+    
+    --gradient-dark: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+* {
+    transition: background-color var(--transition-normal), 
+                color var(--transition-normal),
+                border-color var(--transition-normal);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Inter', sans-serif;
-    color: #1f2937;
-    background-color: #f9fafb;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
+    transition: background-color var(--transition-slow), color var(--transition-slow);
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-hover);
+}
+
+/* ============================================
+   ENHANCED BUTTON STYLES
+   ============================================ */
+@layer components {
+    .btn-primary-enhanced {
+        @apply bg-gradient-to-r from-red-600 to-rose-600 
+               hover:from-red-700 hover:to-rose-700 
+               text-white font-semibold 
+               px-6 py-3 rounded-full
+               transition-all duration-300 
+               transform hover:scale-105 hover:-translate-y-0.5
+               shadow-lg hover:shadow-red-500/25
+               focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2;
+    }
+
+    .btn-secondary-enhanced {
+        @apply bg-transparent border-2 border-red-500 
+               text-red-500 font-semibold
+               px-6 py-3 rounded-full
+               transition-all duration-300 
+               hover:bg-red-500 hover:text-white
+               transform hover:scale-105
+               focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2;
+    }
+
+    .card-enhanced {
+        @apply bg-[var(--color-bg-card)] 
+               backdrop-blur-sm 
+               border border-[var(--color-border-light)]
+               rounded-2xl 
+               transition-all duration-300
+               hover:shadow-lg hover:border-[var(--color-border)];
+    }
+
+    .glass-effect {
+        @apply bg-white/10 backdrop-blur-md border border-white/20;
+    }
+
+    .text-gradient {
+        @apply text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-rose-500;
+    }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.8); }
+}
+
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+}
+
+/* ============================================
+   THEME-AWARE COMPONENTS
+   ============================================ */
+
+/* Navbar in light mode */
+.light .navbar-themed {
+    @apply bg-white shadow-md border-b border-gray-200;
+}
+
+/* Cards in light mode */
+.light .card-themed {
+    @apply bg-white border-gray-200;
+}
+
+/* Footer in light mode */
+.light .footer-themed {
+    @apply bg-gray-100 text-gray-700;
+}
+
+/* Input fields */
+.input-themed {
+    @apply bg-[var(--color-bg-secondary)] 
+           border border-[var(--color-border)]
+           text-[var(--color-text-primary)]
+           placeholder:text-[var(--color-text-muted)]
+           focus:border-red-500 focus:ring-1 focus:ring-red-500;
+}
+
+/* ============================================
+   HOVER EFFECTS
+   ============================================ */
+.hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+}
+
+.hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+}
+
+.hover-glow {
+    @apply transition-shadow duration-300 hover:shadow-lg hover:shadow-red-500/20;
 }
