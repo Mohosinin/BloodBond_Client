@@ -10,7 +10,7 @@ const useVolunteer = () => {
         enabled: !loading && !!user?.email,
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/role/${user.email}`);
-            return res.data?.role === 'volunteer';
+            return res.data?.role?.toLowerCase() === 'volunteer';
         }
     })
     return [isVolunteer, isVolunteerLoading]

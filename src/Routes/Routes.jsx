@@ -1,3 +1,8 @@
+/**
+ * ENHANCED ROUTES
+ * Added: About, Contact, Help pages
+ */
+
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../RootLayout/RootLayout";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
@@ -24,6 +29,18 @@ import AllBloodDonationRequests from "../Pages/Home/Dashboard/AllBloodDonationRe
 import ContentManagement from "../Pages/Home/Dashboard/ContentManagement/ContentManagement";
 import ManageProduct from "../Pages/Home/Dashboard/ManageProduct/ManageProduct";
 import AdminOrVolunteerRoute from "./AdminOrVolunteerRoute";
+
+// Blood Compatibility Page
+import BloodCompatibility from "../Pages/BloodCompatibility/BloodCompatibility";
+
+// Analytics & Announcements Pages
+import Analytics from "../Pages/Analytics/Analytics";
+import Announcements from "../Pages/Announcements/Announcements";
+
+// NEW: Additional Pages
+import About from "../Pages/About/About";
+import Contact from "../Pages/Contact/Contact";
+import Help from "../Pages/Help/Help";
 
 
 const router = createBrowserRouter([
@@ -67,6 +84,24 @@ const router = createBrowserRouter([
       {
         path: '/funding',
         element: <PrivateRoute><Funding></Funding></PrivateRoute>
+      },
+      // Blood Compatibility Chart
+      {
+        path: '/blood-compatibility',
+        element: <BloodCompatibility></BloodCompatibility>
+      },
+      // NEW: Additional Pages
+      {
+        path: '/about',
+        element: <About></About>
+      },
+      {
+        path: '/contact',
+        element: <Contact></Contact>
+      },
+      {
+        path: '/help',
+        element: <Help></Help>
       },
     ],
   },
@@ -117,6 +152,15 @@ const router = createBrowserRouter([
       {
         path: 'manage-product',
         element: <ManageProduct></ManageProduct>
+      },
+      // Analytics & Announcements
+      {
+        path: 'analytics',
+        element: <AdminRoute><Analytics></Analytics></AdminRoute>
+      },
+      {
+        path: 'announcements',
+        element: <AdminRoute><Announcements></Announcements></AdminRoute>
       }
     ]
   }

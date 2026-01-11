@@ -22,6 +22,7 @@ export default {
     require('daisyui'),
   ],
   daisyui: {
-    themes: ["light"], // Only allow light theme
+    themes: ["light", "dark"], // Allow both light and dark themes
   },
+  darkMode: 'class', // Enable class-based dark mode
 }

@@ -1,7 +1,9 @@
+
 import React, { createContext, useEffect, useState } from 'react';
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, sendPasswordResetEmail, sendEmailVerification, deleteUser } from "firebase/auth";
 import app from '../firebase/firebase.config';
 import axios from "axios";
+import Loader from '../Components/Loader/Loader';
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -26,6 +28,11 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider);
     }
 
+    const resetPassword = (email) => {
+        setLoading(true);
+        return sendPasswordResetEmail(auth, email);
+    }
+
     const logOut = () => {
         setLoading(true);
         return signOut(auth);
@@ -37,7 +44,14 @@ const AuthProvider = ({ children }) => {
         });
     }
 
+    const verifyEmail = () => {
+        return sendEmailVerification(auth.currentUser);
+    }
 
+    const deleteAccount = () => {
+        setLoading(true);
+        return deleteUser(auth.currentUser);
+    }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -71,9 +85,15 @@ const AuthProvider = ({ children }) => {
         createUser,
         signIn,
         logOut,
-        logOut,
         updateUserProfile,
-        signInWithGoogle
+        signInWithGoogle,
+        resetPassword,
+        verifyEmail,
+        deleteAccount
+    }
+
+    if (loading) {
+        return <Loader />;
     }
 
     return (

@@ -57,7 +57,7 @@ const Funding = () => {
                          <div className="mt-8 pt-6 border-t border-white/20">
                             <h3 className="text-sm font-semibold uppercase tracking-wider opacity-80 mb-2">Total Funding</h3>
                              <p className="text-4xl font-black">
-                                ৳{funds.reduce((a, b) => a + b.amount, 0).toLocaleString()}
+                                BDT {funds.reduce((a, b) => a + b.amount, 0).toLocaleString('en-US')}
                              </p>
                          </div>
                     </div>
@@ -95,7 +95,7 @@ const Funding = () => {
                                                 </td>
                                                 <td>
                                                     <span className="font-bold text-green-600 bg-green-50 px-2 py-1 rounded-md text-xs">
-                                                        ৳{fund.amount}
+                                                        BDT {fund.amount.toLocaleString('en-US')}
                                                     </span>
                                                 </td>
                                                 <td className="text-gray-500 text-sm">{fund.date}</td>

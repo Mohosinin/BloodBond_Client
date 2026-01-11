@@ -11,7 +11,7 @@ const useAdmin = () => {
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/role/${user.email}`);
             // console.log(res.data);
-            return res.data?.role === 'admin';
+            return res.data?.role?.toLowerCase() === 'admin';
         }
     })
     return [isAdmin, isAdminLoading]
