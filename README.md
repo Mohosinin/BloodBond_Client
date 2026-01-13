@@ -1,7 +1,5 @@
 # 🩸 BloodBond - Lifesaving Blood Donation Platform
 
-![BloodBond Banner](https://i.ibb.co/6Pq1f15/banner.jpg)
-
 ## 🌐 Live Website
 **[Visit BloodBond Live](https://blood-bond-client-two.vercel.app)**
 
@@ -24,15 +22,15 @@ The inspiration behind BloodBond comes from the critical need for a centralized,
 
 ---
 
-## � Platform Overview
+## 📱Platform Overview
 
-![BloodBond Platform Showcase](https://ibb.co.com/ZzGZq5xW)
+![BloodBond Platform Showcase](https://i.ibb.co.com/RTY5Rfcz/Blood-Bond.png)
 
 *A comprehensive view of BloodBond's key features: Homepage, Donation Requests, Donor Search, Blood Compatibility Chart, Educational Blog, and Analytics Dashboard.*
 
 ---
 
-## �🚀 Key Features
+## 🚀 Key Features
 
 ### 👤 User Roles & Dashboards
 *   **Donors:** 
