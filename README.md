@@ -24,7 +24,7 @@ The inspiration behind BloodBond comes from the critical need for a centralized,
 
 ## 📱Platform Overview
 
-![BloodBond Platform Showcase](https://i.ibb.co/RTY5Rfcz/Blood-Bond.png)
+![BloodBond Platform Showcase](.github/platform-overview.png)
 
 *A comprehensive view of BloodBond's key features: Homepage, Donation Requests, Donor Search, Blood Compatibility Chart, Educational Blog, and Analytics Dashboard.*
 
