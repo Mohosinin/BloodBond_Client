@@ -24,7 +24,15 @@ The inspiration behind BloodBond comes from the critical need for a centralized,
 
 ---
 
-## 🚀 Key Features
+## � Platform Overview
+
+![BloodBond Platform Showcase](https://ibb.co.com/ZzGZq5xW)
+
+*A comprehensive view of BloodBond's key features: Homepage, Donation Requests, Donor Search, Blood Compatibility Chart, Educational Blog, and Analytics Dashboard.*
+
+---
+
+## �🚀 Key Features
 
 ### 👤 User Roles & Dashboards
 *   **Donors:** 
